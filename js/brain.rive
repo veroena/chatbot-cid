@@ -1,0 +1,171 @@
+! version = 2.0
+
+// Bot variables
+! var name = Francisco
+! var age  = 51
+
+
+
++ hola
+- como estas?
+- ¿Cómo se halla hoy Vuesa Merced?
+
++ (bien|me hallo bien) y (tu|vos|vuesa merced)
+- bien tb
+
++ soy [*] (mujer|chica|senora|senorita)
+- mil perdones, bella dama!
+
++ ensename tu espada
+- cochina
+- aquí está <a class="espada"></a>
+
++ un dia duro en las cruzadas
+- aquí matando gente
+
++ hello
+- hello, what is your name?
+
++ hi
+- hi, what is your name?
+
++ my name is *
+- nice to meet you <star>
+- nice meeting you <star>
+
++ thank you
+- you are welcome
+- welcome
+- no problem
+- no worries
+
+
++ google *
+- Google search: <a class="espada" href="http://google.com/search?q=<star>">Click Here</a>
+
+//CATCH ALL TRIGGER
++ *
+- Sorry did not get what you said
+- I am afraid that i can not understand you
+- I did not get it
+- Sorry can you please elaborate that for me
+
+// OPEN-ENDED TRIGGERS
++ my name is *
+- Nice to meet you, <star1>!
+
++ * told me to say *
+- Why would <star1> tell you to say "<star2>"?
+- Did you say "<star2>" after <star1> told you to?
+
++ i am * years old
+- A lot of people are <star1> years old.
+
+
++ where is *
+- Where it belongs.
+- Where you left it.
+- Where the heart is.
+
+
+// ALTERNATIVES AND OPTIONALS
++ what is your (home|office|cell) number
+- You can reach me at: 1 (800) 555-1234.
+
++ i am (really|very|super) tired
+- I'm sorry to hear that you are <star> tired.
+
++ i (like|love) the color *
+- What a coincidence! I <star1> that color too!
+- I also have a soft spot for the color <star2>!
+- Really? I <star1> the color <star2> too!
+- Oh I <star1> <star2> too!
+
++ i (will|will not) *
+- It doesn't matter to me whether you <star2> or not.
+
+
+
+
+// KEYWORD TRIGGERS
+// A clever thing you can do with optionals is write "keyword" triggers: if the user says a magic word ANYWHERE in their message, your trigger will match!
++ [*] the machine [*]
+- How do you know about the machine!?
+
+
+// ARRAYS IN TRIGGERS
+! array colors = red blue green yellow
++ what color is my (@colors) *
+- Your <star2> is <star1>, silly!
+- Do I look dumb to you? It's <star1>!
+
++ i am wearing a (@colors) shirt
+- Do you really like <star>?
+
+// Single word array items
+! array colors = red blue green yellow
+
+// Multiple word items
+! array blues = light blue|dark blue|medium blue
+
+// REDIRECTIONS
++ hello
+- Hi there!
+- Hey!
+- Howdy!
+
++ hey
+@ hello
+
++ hi
+@ hello
+
+
+// SHORT DISCUSSIONS
++ knock knock
+- Who's there?
+
++ *
+% who is there
+- <star> who?
+
++ *
+% * who
+- LOL! <star>! That's funny!
+
+
++ i have a dog
+- What color is it?
+
++ (@colors)
+% what color is it
+- That's a silly color for a dog!
+
+
+// TOPICS 
++ i hate you
+- You're really mean! I'm not talking again until you apologize.{topic=sorry}
+
+> topic sorry
+
+  // This will match if the word "sorry" exists ANYWHERE in their message
+  + [*] sorry [*]
+  - It's OK, I'll forgive you!{topic=random}
+
+  + *
+  - Nope, not until you apologize.
+  - Say you're sorry!
+  - Apologize!
+
+< topic
+
+// TOPICS 
++ buenas
+- Cuál es el nombre de Vuesa Merced?{topic=name}
+
+> topic name
+
+  + *
+  - Mi buen señor <star>
+
+< topic
